@@ -1,0 +1,23 @@
+# Environment variables (Crucial to ignore so secrets don't leak)
+.env
+.env.local
+.env.*.local
+
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build outputs
+dist/
+build/
+client/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS specific
+.DS_Store
+Thumbs.db

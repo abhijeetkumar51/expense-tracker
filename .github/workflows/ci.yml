@@ -1,0 +1,49 @@
+name: Expense Tracker CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Server Dependencies
+        working-directory: ./server
+        run: npm ci || npm install
+
+      # Skipping E2E tests here because they require a live Supabase DB connection.
+      # In a robust CI, we would mock the DB or spin up a local PostgreSQL service.
+
+      - name: Install Client Dependencies
+        working-directory: ./client
+        run: npm ci || npm install
+
+      - name: Build React Client
+        working-directory: ./client
+        run: npm run build
+
+  build-docker-images:
+    runs-on: ubuntu-latest
+    needs: test-and-build-code
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Server Image
+        working-directory: ./server
+        run: docker build -t expense-tracker-server .
+
+      - name: Build Client Image
+        working-directory: ./client
+        run: docker build -t expense-tracker-client .

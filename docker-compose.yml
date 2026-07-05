@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: expense-tracker-server
+    ports:
+      - "5000:5000"
+    # Load environment variables from the server/.env file
+    env_file:
+      - ./server/.env
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: expense-tracker-client
+    ports:
+      - "3000:80" # Maps port 80 inside the Nginx container to port 3000 on your host machine
+    depends_on:
+      - server
+    restart: unless-stopped

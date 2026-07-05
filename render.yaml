@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: expense-tracker-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: ~20
+      # We do NOT put secrets here. You must add DATABASE_URL and JWT_SECRET manually in the Render dashboard.
+      - key: PORT
+        value: 5000
