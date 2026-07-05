@@ -8,7 +8,7 @@ A comprehensive, full-stack personal finance application designed to help users 
 
 ## 🌐 Live Demo
 
-- **Live URL:** [Insert deployment link here e.g., Vercel/Render]
+- **Live URL:** https://expense-tracker-ten-murex-80.vercel.app
 
 *(Note to Self: Add a GIF or screenshot of the Dashboard and Transactions page here)*
 
